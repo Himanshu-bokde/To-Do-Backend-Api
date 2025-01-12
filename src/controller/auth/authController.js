@@ -20,7 +20,7 @@ const login = async (req, res) => {
 
     const token = jwtService.generateToken({ id: user._id, email: user.email });
     logger.info(`User ${email} logged in successfully`);
-    res.json({ token });
+    res.json({ token, name: user.name });
   } catch (error) {
     logger.error(`Error in login: ${error.message}`);
     res.status(500).json({ message: "Internal Server Error" });
@@ -43,7 +43,7 @@ const register = async (req, res) => {
     });
 
     logger.info(`User ${email} registered successfully`);
-    res.status(201).json({ token });
+    res.status(201).json({ token, name: newUser.name });
   } catch (error) {
     logger.error(`Error in register: ${error.message}`);
     res.status(500).json({ message: "Internal Server Error" });
