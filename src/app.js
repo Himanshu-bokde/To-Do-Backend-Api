@@ -7,6 +7,8 @@ const requestLogger = require("./middleware/loggerMiddleware");
 const logger = require("./utils/logger");
 const { rateLimitMiddleware } = require("./middleware/rateLimiter");
 const connectDB = require("./config/mongodb"); // Import DB connection
+const corsOptions = require("./config/corsConfig");
+const cors = require("cors");
 
 const port = process.env.PORT || 9990;
 const numCPUs = os.cpus().length;
@@ -42,6 +44,7 @@ if (cluster.isMaster) {
 } else {
   const app = express();
   connectDB();
+  app.use(cors(corsOptions)); // Apply CORS
   app.use(express.json());
   app.use(requestLogger);
   app.use(rateLimitMiddleware);
