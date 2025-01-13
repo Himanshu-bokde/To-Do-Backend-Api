@@ -1,5 +1,6 @@
 const { RateLimiterRedis } = require("rate-limiter-flexible");
 const redisClient = require("../config/redisConfig");
+const logger = require("../utils/logger");
 
 // General rate limiting (100 requests per 15 minutes)
 const rateLimiter = new RateLimiterRedis({
@@ -38,6 +39,7 @@ const loginRateLimitMiddleware = (req, res, next) => {
         .status(429)
         .json({ message: "Too many login attempts, try again later." });
     });
+  logger.warn(`Too many login attempts, try again later`);
 };
 
 module.exports = { rateLimitMiddleware, loginRateLimitMiddleware };
