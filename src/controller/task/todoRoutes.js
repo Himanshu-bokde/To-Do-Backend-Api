@@ -9,4 +9,13 @@ module.exports = function (router) {
     authenticateToken,
     todoController.createTodo
   );
+
+
+  router.get(
+    BASE_URI + "/list",
+    authenticateToken,
+    todoController.listTodo
+  );
+
+
 };

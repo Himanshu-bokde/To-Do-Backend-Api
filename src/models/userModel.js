@@ -3,6 +3,7 @@ const { hashPassword, comparePassword } = require("../utils/hashUtils");
 
 const userSchema = new mongoose.Schema(
   {
+    _id: { type: mongoose.Schema.Types.ObjectId, auto: true }, // Explicit primary key
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
