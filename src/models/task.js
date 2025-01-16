@@ -4,7 +4,7 @@ const taskSchema = new mongoose.Schema(
   {
     _id: { type: mongoose.Schema.Types.ObjectId, auto: true }, // ✅ Explicit Task ID
     taskName: { type: String, required: true },
-    discription: { type: String, required: true, unique: true },
+    discription: { type: String, required: true },
     priority: { type: String, required: true },
     date: { type: Date, required: true },
 

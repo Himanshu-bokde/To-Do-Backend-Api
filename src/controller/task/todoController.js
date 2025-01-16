@@ -57,4 +57,38 @@ const listTodo = async (req, res) => {
   }
 };
 
-module.exports = { createTodo, listTodo };
+const deletTodoList=async (req, res)=>{
+  try{
+    const data=req.body;
+    if(!data.id){
+      return res.status(400).json({ message: "Task ID is required" });
+    }
+
+    const task=await Task.findByIdAndDelete(data.id);
+    res.json({ message: "Task is Delete" })
+  }catch(err){
+    res.status(500).json({ message: "Server error", error });
+  }
+
+}
+
+const editTodoList=async (req, res)=>{
+  try{
+    const data=req.body;
+    if(!data._id){
+      return res.status(400).json({ message: "Task ID is required" });
+    }
+
+    const updatedTodo=await Task.findByIdAndUpdate(data._id, data, { new: true });
+    if (!updatedTodo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+
+    res.json({ message: "Task is edit" })
+  }catch(err){
+    res.status(500).json({ message: "Server error", error });
+  }
+
+}
+
+module.exports = { createTodo, listTodo,deletTodoList,editTodoList };
